@@ -1,0 +1,41 @@
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styleHome1.css}">
+    <style>
+        div.gallery {
+            margin: 5px;
+            border: 1px solid #ccc;
+            float: left;
+            width: 400px;
+        }
+
+        div.gallery:hover {
+            border: 1px solid #777;
+        }
+
+        div.gallery img {
+            width: 100%;
+            height: auto;
+        }
+
+        div.desc {
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+
+<th:block th:each="tmp : ${templates}">
+    <div class="gallery">
+        <form method="post" action="/cv/choose-template">
+            <input type="hidden" th:value="${tmp.id}" name="templateId">
+            <input type="image" th:src="${tmp.previewUrl}" alt="Cinque Terre" width="400" height="600">
+        </form>
+    </div>
+</th:block>
+
+
+</body>
+</html>

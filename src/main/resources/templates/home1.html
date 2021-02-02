@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/styleHome1.css}">
+
+
+</head>
+
+<body>
+<div class="header">
+    <div class="inner-header">
+        <h5>CV Arche</h5>
+        <h6 th:text="${user.getName()}"></h6>
+    </div>
+</div>
+
+
+<div class="main">
+    <section>
+
+
+        <div class="callout">
+            <a href="/cv/basic-info">
+                <button class="bottom-textN"> New CV</button>
+            </a>
+        </div>
+
+        <div>
+            <a>
+                <button class="bottom-text1"> All Designs</button>
+            </a>
+        </div>
+
+
+        <div>
+            <a>
+                <button class="bottom-text2">My Designs</button>
+            </a>
+        </div>
+
+        <div>
+            <a>
+                <button class="bottom-text2"> Shared with me</button>
+            </a>
+        </div>
+
+        <div>
+            <a>
+                <button class="bottom-text2"> Archived</button>
+            </a>
+        </div>
+
+
+        <div>
+            <a>
+                <button class="bottom-text2"> Trash</button>
+            </a>
+        </div>
+
+
+        <div>
+            <a>
+                <button class="bottom-text6"> MY ACCOUNT</button>
+            </a>
+        </div>
+
+
+        <div>
+            <a>
+                <button class="bottom-text6"> Help</button>
+            </a>
+        </div>
+
+        <div>
+            <a>
+                <a href="/logout" style="text-decoration: none">
+                    <button class="bottom-text7"> Logout</button>
+                </a>
+            </a>
+        </div>
+
+
+    </section>
+    <aside class="right">
+        <h1>
+            <div class="BoxContainer">
+                <table class="ElementContainer">
+                    <tr>
+                        <td>
+                            <input type="text" placeholder="Search" class="search">
+                        </td>
+                        <td>
+                            <a href="#"> <i class="material-icons"> Search </i> </a>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </h1>
+        <br><br><br>
+        <div>
+            <table border="1" height="300" width="800">
+                <tr style="background-color: rgb(48, 13, 175);  color: white;">
+                    <th> #</th>
+                    <th>Title</th>
+                    <th>Preview</th>
+                    <th> Actions</th>
+                </tr>
+
+                <th:block th:each="cv, index : ${cvList}">
+
+                    <tr>
+                        <td th:text="${index.index}"></td>
+                        <td th:text="${cv.title}"></td>
+                        <td><img th:src="${cv.template.previewUrl}" , th:width="70" th:height="90"></td>
+                        <td>
+                            <a th:href="'/cv/download/'+${cv.cvID}"><input type="button" name="download" th:value="Download"></a> &nbsp; &nbsp;
+                            <a th:href="'/cv/delete/'+${cv.cvID}"><input type="button" name="delete" th:value="Delete"></a>
+                        </td>
+                    </tr>
+                </th:block>
+
+                <tr style="background-color: rgb(48, 13, 175);  color: white;" th:if="${ #lists.isEmpty(cvList)}">
+                    <td colspan="4"><h4>No CV found</h4></td>
+                </tr>
+
+            </table>
+        </div>
+
+    </aside>
+</div>
+
+
+</body>
+
+</html>

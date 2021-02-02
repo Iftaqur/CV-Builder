@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/Form-Academic.css}">
+    <title></title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<div th:block th:include="fragments/formNav :: formNav">
+
+</div>
+
+<div class="header3">
+    <table style="border:2px solid black; width:900px; margin:0 auto;">
+        <tr>
+            <th th:text="institute"></th>
+            <th th:text="degree"></th>
+            <th th:text="grade"></th>
+            <th th:text="endYear"></th>
+            <th th:text="action"></th>
+        </tr>
+
+        <th:block th:each="ai : ${academicInfoList}">
+
+            <tr>
+                <td th:text="${ai.institute}"></td>
+                <td th:text="${ai.degree}"></td>
+                <td th:text="${ai.grade}"></td>
+                <td th:text="${ai.endYear}"></td>
+                <td>
+                    <form method="post" th:action="'/cv/academic-info/'+${ai.id}"><input type="submit"
+                                                                                           th:value="delete">
+                        &nbsp;
+                        &nbsp;<input type="submit" th:value="edit"></form>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+
+    <br>
+    <br>
+
+    <form id="newForm" action="/cv/academic-info" method="post">
+        <input class="institution" type="text" name="institute" placeholder="Name of Institution">
+        <input class="year" type="text" name="endYear" placeholder="Graduation Year"> <br>
+
+        <input class="degree" type="text" name="degree" placeholder="Degree">
+        <input class="cgpa" type="text" name="grade" placeholder="Curriculum | CGPA"> <br>
+        <br>
+        <input type="submit" class="submit" value="Save and add more">
+    </form>
+    <script>
+    </script>
+
+
+</div>
+</body>
+
+</html>

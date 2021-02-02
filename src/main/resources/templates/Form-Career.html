@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/Form-Career.css}">
+    <title></title>
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<div th:block th:include="fragments/formNav :: formNav">
+
+</div>
+
+<div class="header3">
+
+    <table style="border:2px solid black; width:900px; margin:0 auto;">
+        <tr>
+            <th th:text="company"></th>
+            <th th:text="position"></th>
+            <th th:text="duration"></th>
+            <th th:text="details"></th>
+            <th th:text="actions"></th>
+        </tr>
+        <th:block th:each="ci : ${careerInfoList}">
+
+            <tr>
+                <td th:text="${ci.company}"></td>
+                <td th:text="${ci.position}"></td>
+                <td th:text="${ci.duration}"></td>
+                <td th:text="${ci.details}"></td>
+                <td><form method="post" th:action="'/cv/career-info/'+${ci.id}"><input type="submit" th:value="delete"> &nbsp; &nbsp; <input type="submit" th:value="edit"></form></td>
+            </tr>
+        </th:block>
+    </table>
+
+    <form id="newForm" method="post" action="/cv/career-info">
+
+        <input class="company" type="text" name="company" placeholder="Name of Company" required>
+
+        <input class="year" type="text" name="duration" placeholder="Duration (i.e. 2019-Current)" required>
+        <br>
+        <br>
+        <br>
+
+        <input class="post" type="text" name="position" placeholder="CUO | Manager ">
+        <br>
+
+
+        <input aria-multiline="true" type="text" name="details" class="field" placeholder="Details" required> <br>
+        <input type="submit" class="submit" value="Save and add more">
+    </form>
+    <script>
+    </script>
+
+</div>
+</body>
+
+</html>

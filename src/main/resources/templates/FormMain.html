@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Contact </title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/formMain.css}">
+
+    <script type="text/javascript">
+        function validateNumber(id) {
+
+            var phone = document.getElementById(id).value;
+
+
+
+            if (phone == "") {
+
+                document.getElementById("messages").innerHTML = "** Please Fill Mobile Number";
+                return false;
+            }
+
+            if (isNaN(phone)) {
+                document.getElementById("messages").innerHTML = "**Enter Only Numeric Value";
+                return false;
+
+            }
+
+
+            if (phone.length < 11) {
+                document.getElementById("messages").innerHTML = "**Mobie Number Must be 11 Digit";
+                return false;
+
+            }
+
+
+            if (phone.length > 14) {
+                document.getElementById("messages").innerHTML = "**Mobie Number Must be 11 Digit";
+                return false;
+
+            }
+        }
+
+        function validateEmail(id) {
+
+            var a = document.getElementById(id).value;
+
+            if (a.indexOf('@') <= 0) {
+
+                document.getElementById("message").innerHTML = "** Invalied @ Position";
+                return false;
+            }
+
+            if (a.charAt(a.length - 4) != '.') {
+
+                document.getElementById("message").innerHTML = "** Invalied Dot(.) Position";
+                return false;
+            }
+
+
+        }
+    </script>
+
+
+
+</head>
+
+<body>
+    <div th:block th:include="fragments/formNav :: formNav">
+
+    </div>
+
+    <div class="header3">
+
+
+        <div class="regform">
+            <h1> Registration Form</h1>
+        </div>
+
+        <div class="main">
+
+            <form onsubmit="return validate()" method="post" action="/cv/basic-info" enctype="multipart/form-data">
+                <h2 class="name "> Name: </h2>
+                <input id="first " class="firstname " type="text " name="firstname" th:value="${basicInfo?.firstname}" placeholder="First Name" required>
+
+                <input id="last" class="lastname " type="text " name="lastname" th:value="${basicInfo?.lastname}" placeholder="Last Name" required>
+
+                <h2 class="name "> DOB: </h2>
+                <input type="date" class="number" id="birthday" name="birthday" th:value="${{basicInfo?.birthday}}">
+
+
+                <h2 class="name "> Phone: </h2>
+                <input class="number " type="text" name="phone" id="mobilenumber" placeholder="01911223344" th:value="${basicInfo?.phone}" onblur="validateNumber(this.id)" required> <br>
+                <span id="messages" style="color:red"> </span>
+
+
+                <h2 class="name "> Email: </h2>
+                <input class="email" type="text" id="email" name="email" placeholder="abc@gmail.com " th:value="${basicInfo?.email}" onblur="validateEmail(this.id)" required> <br>
+                <span id="message" style="color:red"> </span>
+
+                <h2 class="name "> Address: </h2>
+                <input class="address " type="text" th:value="${basicInfo?.address}" name="address" placeholder="Area | City | Post Code | Country " required> </br>
+
+                <h2 class="name "> Reference: </h2>
+                <input class="referance " type="text " name="reference" required th:value="${basicInfo?.reference}">
+                <br>
+                <input type="file" name="photo">
+                <br><br>
+                <input class="submit" type="submit">
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

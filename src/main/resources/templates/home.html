@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home-zasia.css}"/>
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2 class="txt">CV Arche</h2>
+
+</div>
+<div>
+    <ul class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/cv/basic-info">New CV</a></li>
+    </ul>
+</div>
+<div class="row">
+    <div class="column left">
+        <a href="/">
+            <button class="button"> Home</button>
+        </a>
+        <a href="/cv/basic-info">
+            <button class="button"> Basic Info</button>
+        </a>
+        <a href="/cv/profile-info">
+            <button class="button"> Profile</button>
+        </a>
+        <a href="/cv/academic-info">
+            <button class="button"> Academic</button>
+        </a>
+        <a href="/cv/career-info">
+            <button class="button"> Career</button>
+        </a>
+        <div th:if="${isProfileComplete}">
+            <a href="/cv/choose-template">
+                <button class="button"> Generate CV</button>
+            </a>
+        </div>
+        <a href="/logout">
+            <button class="button"> Logout</button>
+        </a>
+
+    </div>
+    <div class="column middle">
+        <div>
+            <table border="1" width="100%" style="font-size: x-large;">
+                <tr style="background-color: rgb(48, 13, 175);  color: white;">
+                    <th style="text-align: center; vertical-align: middle;"> #</th>
+                    <th style="text-align: center; vertical-align: middle;">Title</th>
+                    <th style="text-align: center; vertical-align: middle;">Preview</th>
+                    <th style="text-align: center; vertical-align: middle;"> Actions</th>
+                </tr>
+
+                <th:block th:each="cv, index : ${cvList}">
+
+                    <tr>
+                        <td style="text-align: center; vertical-align: middle;" th:text="${index.index}"></td>
+                        <td style="text-align: center; vertical-align: middle;" th:text="${cv.title}"></td>
+                        <td style="text-align: center; vertical-align: middle;"><img th:src="${cv.template.previewUrl}"
+                                                                                     , th:width="70" th:height="90">
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <a th:href="'/cv/download/'+${cv.cvID}"><input type="button" name="download"
+                                                                           th:value="Download"></a> &nbsp; &nbsp;
+                            <a th:href="'/cv/delete/'+${cv.cvID}"><input type="button" name="delete" th:value="Delete"></a>
+                        </td>
+                    </tr>
+                </th:block>
+
+                <tr style="background-color: rgb(48, 13, 175);  color: white;" th:if="${ #lists.isEmpty(cvList)}">
+                    <td colspan="4"><h4>No CV found</h4></td>
+                </tr>
+
+            </table>
+            <div th:unless="${isProfileComplete}">
+                <h4 style="color:darkred">Complete your info to generate CV</h4>
+            </div>
+        </div>
+
+    </div>
+    <div class="column right">
+        <button class="tmp">Templates</button>
+        <br>
+        <div class="column right2" style="overflow: scroll">
+            <th:block th:each="tmp : ${templates}">
+                <div class="gallery" style="width: 20%">
+                    <form method="post" id="generate-form" action="/cv/choose-template">
+                        <div th:if="${isProfileComplete}">
+                            <input type="hidden" th:value="${tmp.id}" name="templateId">
+                            <input type="image" th:src="${tmp.previewUrl}" width="500%" alt="Cinque Terre">
+                        </div>
+                        <div th:unless="${isProfileComplete}">
+                            <div onclick="alert('Complete your profile first')">
+                                <input type="hidden" th:value="${tmp.id}" name="templateId" disabled>
+                                <img th:src="${tmp.previewUrl}" width="500%" alt="Cinque Terre">
+                                <div style="height: 5px"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </th:block>
+        </div>
+        <!-- <div>
+             <button class="buttonn">Generate</button>
+             <button class="buttonn">Save</button>
+
+         </div>
+         <div class="dwn"> Download File:
+             <a href="">Click here</a></div>-->
+    </div>
+</div>
+
+</body>
+</html>

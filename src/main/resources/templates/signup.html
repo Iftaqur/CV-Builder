@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<form action="/signup" method="post" class="signup-form">
+    <div class="callout"><a href="/login">
+        <button class="close-button" aria-label="Close alert" align="left" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </a>
+    </div>
+
+    <h1>Create your Account</h1>
+
+    <div class="txtb">
+        <input type="text" name="name">
+        <span data-placeholder="Name"></span>
+    </div>
+    <div class="txtb">
+        <input type="text" name="email">
+        <span data-placeholder="Email:abc@gmail.com"></span>
+    </div>
+    <!--<div class="txtb">
+      <input type="text" name="gender">
+      <span data-placeholder="Gender: Male/Female"></span>
+    </div>-->
+
+    <div class="txtb">
+        <input type="password" name="password">
+        <span data-placeholder="Password"></span>
+    </div>
+
+    <input type="submit" name="register" class="logbtn" value="Register">
+
+
+</form>
+
+<script type="text/javascript">
+    $(".txtb input").on("focus", function () {
+        $(this).addClass("focus");
+    });
+
+    $(".txtb input").on("blur", function () {
+        if ($(this).val() == "")
+            $(this).removeClass("focus");
+    });
+
+</script>
+
+
+</body>
+</html>

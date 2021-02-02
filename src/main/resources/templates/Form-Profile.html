@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/Form-Profile.css}">
+    <title></title>
+
+</head>
+
+<body>
+<div th:block th:include="fragments/formNav :: formNav">
+
+</div>
+
+
+<div class="header3">
+
+
+    <form id="newForm" method="post" action="/cv/profile-info">
+        <h2 class="name"> Profile</h2> <br>
+        <input type="text" aria-multiline="true" class="field" th:value="${profileInfo?.profile}" name="profile" placeholder="Your Message"> <br> <br> <br>
+
+        <h2 class="name"> Skill </h2> <br>
+        <input type="text" aria-multiline="true" class="field1" th:value="${profileInfo?.skill}" name="skill" placeholder="Your Message"> <br>
+
+        <input type="submit" class="submit" onclick="newFunction()" value="Save">
+    </form>
+    <script>
+
+    </script>
+</div>
+
+
+</body>
+
+</html>

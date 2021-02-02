@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+
+
+</head>
+
+<body>
+<div class="txt">
+    <h5>CV Arche</h5>
+
+</div>
+<div class="txt1"> We are here to help you make professional CV.
+</div>
+
+
+<form class="login-form" method="POST" action="/login">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <h1>Login to your Account</h1>
+
+    <div class="txtb">
+        <input type="email" name="email" placeholder="Email" required>
+    </div>
+
+    <div class="txtb">
+        <input type="password" name="password" placeholder="Password" required>
+    </div>
+
+    <input type="submit" name="login" class="logbtn" value="Login">
+    <br>
+    <div th:if="${error}">
+        <div th:text="${error}" class="error-text"></div>
+    </div>
+    <div class="bottom-text">
+        Don't have account? <a href="/signup">Sign up</a></br>
+        Forgotten Password? <a href="#">Recover Password</a>
+    </div>
+
+</form>
+
+
+<script type="text/javascript">
+    $(".txtb input").on("focus", function () {
+        $(this).addClass("focus");
+    });
+
+    $(".txtb input").on("blur", function () {
+        if ($(this).val() == "")
+            $(this).removeClass("focus");
+    });
+
+</script>
+
+</body>
+</html>

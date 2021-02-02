@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Contact </title>
+    <meta charset="utf-8">
+
+    <script type="text/javascript">
+        function validateNumber(id) {
+
+            var phone = document.getElementById(id).value;
+
+
+            if (phone == "") {
+
+                document.getElementById("messages").innerHTML = "** Please Fill Mobile Number";
+                return false;
+            }
+
+            if (isNaN(phone)) {
+                document.getElementById("messages").innerHTML = "**Enter Only Numeric Value";
+                return false;
+
+            }
+
+
+            if (phone.length < 11) {
+                document.getElementById("messages").innerHTML = "**Mobie Number Must be 11 Digit";
+                return false;
+
+            }
+
+
+            if (phone.length > 14) {
+                document.getElementById("messages").innerHTML = "**Mobie Number Must be 11 Digit";
+                return false;
+
+            }
+        }
+
+        function validateEmail(id) {
+
+            var a = document.getElementById(id).value;
+
+            if (a.indexOf('@') <= 0) {
+
+                document.getElementById("message").innerHTML = "** Invalied @ Position";
+                return false;
+            }
+
+            if (a.charAt(a.length - 4) != '.') {
+
+                document.getElementById("message").innerHTML = "** Invalied Dot(.) Position";
+                return false;
+            }
+
+
+        }
+    </script>
+
+
+</head>
+
+<body>
+<div th:fragment="formNav">
+    <div class="header">
+        <div class="inner-header">
+            <h5>CV Arche</h5>
+        </div>
+    </div>
+    <div class="header2" style="width: 95%">
+        <div class="callout">
+            <a href="/">
+                <button class="bottom-text1"> Home</button>
+            </a>
+            <a href="/cv/basic-info">
+                <button class="bottom-text3"> Contact Details</button>
+            </a>
+            <a href="/cv/profile-info">
+                <button class="bottom-text3"> Profile</button>
+            </a>
+            <a href="/cv/academic-info">
+                <button class="bottom-text3"> Academic</button>
+            </a>
+            <a href="/cv/career-info">
+                <button class="bottom-text3"> Career</button>
+            </a>
+            <div th:if="${isProfileComplete}">
+                <a href="/cv/choose-template">
+                    <button class="bottom-text3"> Generate CV</button>
+                </a>
+            </div>
+            <!--<a href="/cv/project-info"> <button class="bottom-text3"> Project </button> </a>-->
+            <a href="/">
+                <button class="bottom-text2"> Back</button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        var elements = document.getElementsByTagName("a");
+        console.log(elements);
+        for (var i = 0, max = elements.length; i < max; i++) {
+            if (elements[i].href == window.location.href) {
+                elements[i].getElementsByTagName("button")[0].classList.add("bottom");
+                elements[i].getElementsByTagName("button")[0].classList.remove("bottom-text3");
+            } else {
+                elements[i].getElementsByTagName("button")[0].classList.remove("bottom");
+                elements[i].getElementsByTagName("button")[0].classList.add("bottom-text3");
+            }
+        }
+    </script>
+</div>
+
+
+</body>
+
+</html>
